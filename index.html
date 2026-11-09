@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090817"><meta name="description" content="Metroris — неоновая социальная сеть">
+  <title>Metroris 2.0 — социальная сеть</title><link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="glow glow-a"></div><div class="glow glow-b"></div>
+  <header class="topbar"><a class="brand" href="#"><span class="brand-icon">M</span> METRORIS<span class="pink">.</span><small>2.0</small></a>
+    <div class="search"><span>⌕</span><input id="search" placeholder="Поиск публикаций и авторов"></div>
+    <div id="userArea"><button class="btn ghost" id="loginOpen">Войти</button><button class="btn primary" id="registerOpen">Регистрация</button></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar"><div class="side-label">ПЛАТФОРМА</div><a class="nav active" href="#feed">⌂ <span>Лента</span></a><a class="nav" href="#write">✎ <span>Создать пост</span></a><a class="nav" href="#profile">◎ <span>Мой профиль</span></a><a class="nav" href="#messages">✉ <span>Сообщения</span></a><a class="nav" href="#admin" id="adminNav" hidden>⚙ <span>Админ-панель</span></a>
+      <div class="side-note"><b>Твоя цифровая вселенная</b><p>Общайся, публикуй идеи и находи людей по интересам.</p></div>
+      <div class="side-foot">METRORIS 2.0 · DEMO BUILD</div>
+    </aside>
+    <main class="main">
+      <section class="hero"><div><span class="eyebrow">✦ DIGITAL COMMUNITY</span><h1>Твоя лента.<br><span>Твои правила.</span></h1><p>Общайся, делись моментами и создавай своё сообщество.</p></div><div class="hero-orb"><b>M</b><i>✦</i></div></section>
+      <section class="panel auth-hint" id="authHint"><b>Добро пожаловать в Metroris</b><p>Войди или создай аккаунт, чтобы публиковать записи и общаться.</p><button class="btn primary" id="hintRegister">Создать аккаунт</button></section>
+      <section class="panel composer" id="write"><div class="panel-title"><h2>Новая публикация</h2><span class="live">● LIVE FEED</span></div><textarea id="postBody" maxlength="2000" placeholder="Что нового в твоей вселенной?"></textarea><div class="composer-row"><label class="upload">＋ Фото <input type="file" id="postImage" accept="image/*" hidden></label><span id="fileName">До 5 МБ</span><button class="btn primary" id="publish">Опубликовать ↗</button></div></section>
+      <section id="feed"><div class="section-head"><div><span class="eyebrow">ОБНОВЛЕНИЯ</span><h2>Свежая лента</h2></div><button class="btn ghost" id="refresh">↻ Обновить</button></div><div id="posts"><div class="empty">Подключаем ленту…</div></div></section>
+      <section class="panel profile-panel" id="profile"><div class="panel-title"><h2>Мой профиль</h2></div><div id="profileContent" class="muted">Войди, чтобы посмотреть профиль.</div></section>
+      <section class="panel messages-panel" id="messages"><div class="panel-title"><h2>Личные сообщения</h2></div><p class="muted">Выбери пользователя в ленте и нажми «Написать», чтобы начать диалог.</p><div id="messageArea" class="message-area"><p class="empty">Пока нет открытого диалога.</p></div></section>
+      <section class="panel admin-panel" id="admin" hidden><div class="panel-title"><h2>Админ-панель</h2><span class="eyebrow">MODERATION</span></div><p class="muted">Здесь отображаются публикации для модерации. Удаление доступно администраторам.</p><div id="adminContent"></div></section>
+    </main>
+    <aside class="rightbar"><section class="panel"><div class="panel-title"><h3>О проекте</h3><span class="live">2.0</span></div><p class="muted">Metroris — пространство для общения. Будь уважителен к другим участникам.</p></section><section class="panel"><div class="panel-title"><h3>Быстрый старт</h3></div><ol class="steps"><li>Создай аккаунт</li><li>Заполни профиль</li><li>Опубликуй первый пост</li><li>Найди собеседников</li></ol></section><section class="panel"><div class="panel-title"><h3>Теги</h3></div><div class="tags"><span>#Metroris</span><span>#Игры</span><span>#Технологии</span><span>#Арт</span></div></section></aside>
+  </div>
+  <nav class="mobile-nav"><a href="#feed">⌂<small>Лента</small></a><a href="#write">✎<small>Пост</small></a><a href="#profile">◎<small>Профиль</small></a><a href="#messages">✉<small>Чаты</small></a></nav>
+  <div class="modal-wrap" id="authModal"><div class="modal"><button class="x" data-close="authModal">×</button><span class="eyebrow">METRORIS ACCOUNT</span><h2 id="authTitle">Войти</h2><form id="authForm"><label>Email<input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com"></label><label>Пароль<input id="authPassword" type="password" minlength="8" autocomplete="current-password" required placeholder="Минимум 8 символов"></label><label id="usernameLabel" hidden>Имя пользователя<input id="authUsername" maxlength="24" placeholder="например, neonfox"></label><button class="btn primary full" id="authSubmit">Войти</button></form><p id="authMessage" class="notice"></p><button class="switch" id="authSwitch">Нет аккаунта? Зарегистрироваться</button></div></div>
+  <div class="modal-wrap" id="editProfileModal"><div class="modal"><button class="x" data-close="editProfileModal">×</button><span class="eyebrow">YOUR PROFILE</span><h2>Редактировать профиль</h2><form id="profileForm"><label>Имя пользователя<input id="profileUsername" maxlength="24" required></label><label>О себе<input id="profileBio" maxlength="160" placeholder="Расскажи о себе"></label><button class="btn primary full">Сохранить</button></form><p id="profileMessage" class="notice"></p></div></div>
+  <div id="toast" class="toast"></div><script src="app.js"></script>
+</body></html>
